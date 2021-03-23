@@ -1,0 +1,45 @@
+////manar mones
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+df = pd.read_csv('Breast_cancer_data.csv')
+df
+df.describe()
+df.info()
+df.head(5)
+
+///Mariam mamdoh
+uneff = df[df.diagnosis == 0]
+eff = df[df.diagnosis == 1]
+len(uneff)
+len(eff)
+uneffected = (len(uneff)/len(df)) *100
+print('people are uneffected = ', uneffected , '% .')
+effected = (len(eff)/len(df)) *100
+print('people are effected = ', effected , '% .')
+
+
+///hemat shawky
+plt.scatter(df['diagnosis'],df['mean_area'])
+plt.scatter(df['mean_area'],df['mean_texture'])
+plt.scatter(df['mean_radius'],df['mean_perimeter'])
+plt.scatter(df['diagnosis'],df['mean_texture'])
+import seaborn as sns
+sns.pairplot(data=df)
+
+
+/////Hager mohamed
+x = df.drop('diagnosis', 1)
+y = df['diagnosis']
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+print(x_train.shape,x_test.shape)
+print(y_train.shape,y_test.shape)
+from sklearn.linear_model import LinearRegression
+model = LinearRegression ()
+model.fit(x_train,y_train)
+pred =model.predict(x_test)
+from sklearn.metrics import mean_squared_error
+error=np.sqrt(mean_squared_error(y_pred=pred,y_true=y_test))
+print(error)
+print(model.score(x_test,y_test))
